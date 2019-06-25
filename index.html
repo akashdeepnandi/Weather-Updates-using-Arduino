@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>JEC Weather Station</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+        crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+    <style>
+        td,
+        th {
+            text-align: center;
+        }
+
+        table {
+            table-layout: fixed;
+        }
+    </style>
+
+    <script>
+        function update() {
+            $.post( "ret.php", function( data ) {
+                if (data == "N") {
+                    $("#error").html("No data available");
+                    $("#humid").html("");
+                    $("#temp").html("");
+                    $("#light").html("");
+                    $("#status").html("");
+                    $("#ts").html("");
+                } else {
+                    var res = data.split(",");
+                    var s = "";
+                    switch (res[4]) {
+                        case "R": s = "Raining";
+                        break;
+                        case "NR": s = "Not Raining";
+                        break;
+                        case "F": s = "Flood";
+                        break;
+                        default:
+                            break;
+                    }
+                    $("#error").html("");
+                    $("#humid").html(res[1]);
+                    $("#temp").html(res[2]);
+                    $("#light").html(res[3]);
+                    $("#status").html(s);
+                    $("#ts").html(res[11]);
+                    $("#ap").html(res[5]);
+                    $("#ah").html(res[6]);
+                    $("#rp").html(res[7]);
+                    $("#rh").html(res[8]);
+                    $("#speed").html(res[9]);
+                    $("#mspeed").html(res[10]);
+                    
+                }
+
+            });
+        }
+        update();
+        setInterval(update, 2000);
+    </script>
+</head>
+
+<body>
+    <div class="container">
+        <h1 align="center" style="margin-top:50px ">JEC Weather Station</h1>
+        <h1 id="error" align="center"></h1>
+        <table id="t1" class="table table-hover table-dark" style="margin-top:50px ">
+            <tr>
+                <th>Humidity</th>
+                <th>Temperature</th>
+                <th>Light Intensity</th>
+                <th>Weather</th>
+                <th>Timestamp</th>
+            </tr>
+            <tr>
+                <td id="humid"></td>
+                <td id="temp"></td>
+                <td id="light"></td>
+                <td id="status"></td>
+                <td id="ts"></td>
+            </tr>
+            <tr>
+                <td>in %</td>
+                <td>in °C</td>
+                <td>in CD</td>
+                <td></td>
+                <td></td>
+            </tr>
+        </table>
+        <table id="t2" class="table table-hover table-dark" style="margin-top:50px">
+            <tr>
+                <th colspan="2">Absolute</th>
+                <th colspan="2">Relative</th>
+            </tr>
+            <tr>
+                <th>Pressure</th>
+                <th>Height</th>
+                <th>Pressure</th>
+                <th>Height</th>
+            </tr>
+            <tr>
+                <td id="ap"></td>
+                <td id="ah"></td>
+                <td id="rp"></td>
+                <td id="rh"></td>
+            </tr>
+            <tr>
+                <td>in mP</td>
+                <td>in Hg</td>
+                <td>in mP</td>
+                <td>in Hg</td>
+            </tr>
+        </table>
+
+        <table id="t3" class="table table-hover table-dark" style="margin-top:50px">
+            <tr>
+                <th colspan="2">Absolute</th>
+                
+            </tr>
+            <tr>
+                <th>Speed</th>
+                <th>Maximum Speed</th>
+                
+            </tr>
+            <tr>
+                <td id="speed"></td>
+                <td id="mspeed"></td>
+                
+            </tr>
+            <tr>
+                <td>in rpm</td>
+                <td>in rpm</td>
+            </tr>
+        </table>
+        
+        
+
+    </div>
+
+</body>
+
+</html>

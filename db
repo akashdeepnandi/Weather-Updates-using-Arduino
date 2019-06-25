@@ -1,0 +1,27 @@
+database name: w_db
+
+CREATE TABLE w_data (
+    w_id int(11) NOT NULL PRIMARY KEY AUTO_INCREMENT,
+	w_humid varchar(128) NOT NULL,
+    w_temp varchar(128) NOT NULL,
+    w_light varchar(128) NOT NULL,
+    w_status varchar(128) NOT NULL,
+    w_ap varchar(128) NOT NULL,
+    w_ah varchar(128) NOT NULL,
+    w_rp varchar(128) NOT NULL,
+    w_rh varchar(128) NOT NULL,
+    w_speed varchar(128) NOT NULL,
+    w_mspeed varchar(128) NOT NULL,
+    w_ts varchar(200) NOT NULL
+);
+
+INSERT INTO w_data(w_humid, w_temp, w_light, w_status, w_ap, w_ah, w_rp, w_rh, w_speed, w_mspeed, w_ts) VALUES ( 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10)
+
+INSERT INTO w_data(w_temp, w_humid, w_status, w_ts) VALUES ("56","32","Raining","10.30");
+
+INSERT INTO w_data(w_temp, w_humid, w_status, w_ts) VALUES ("62","45","Not Raining","12.30");
+INSERT INTO w_data(w_temp, w_humid, w_status, w_ts) VALUES ("22","40","Flood","1.30");
+
+port: 3306
+
+INSERT INTO w_data(w_humid, w_temp, w_light, w_status, w_ts) VALUES ()
