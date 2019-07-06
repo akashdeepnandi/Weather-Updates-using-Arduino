@@ -32,10 +32,14 @@ def full():
   mycursor.execute("DELETE FROM w_data")
 
 
-ser = serial.Serial("/dev/ttyACM0")#connection to arduino
+ser = serial.Serial("/dev/ttyACM0", 9600, timeout=1)#connection to arduino
+time.sleep(3)
 while True:  # gonna use time.sleep(seconds)
+    
     ser.write(b'x')
+    time.sleep(2)
     x = str(ser.readline())
+    
     val = x.split(',')
     x = list(val[9])
     val[9] = "".join(x[:-5])
@@ -45,5 +49,5 @@ while True:  # gonna use time.sleep(seconds)
     tup = (val[0],val[1],val[2],val[3],val[4],val[5],val[6],val[7],val[8],val[9],ts)
     print(tup)
     insert(tup)
-    time.sleep(2)
+    
 
