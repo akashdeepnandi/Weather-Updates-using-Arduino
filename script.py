@@ -34,8 +34,12 @@ def full():
 
 ser = serial.Serial("/dev/ttyACM0", 9600, timeout=1)#connection to arduino
 time.sleep(3)
+c = 0
 while True:  # gonna use time.sleep(seconds)
-    
+    if c==0:
+      c=1
+    if c==1:
+      time.sleep(6)
     ser.write(b'x')
     time.sleep(2)
     x = str(ser.readline())
